@@ -13,6 +13,7 @@
     <!-- custom styles -->
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/wheel.css" />
+    <link rel="stylesheet" href="/assets/css/modal-config.css" />
     <link rel="stylesheet" href="/assets/css/custom.css" />
     <!-- wheel lib -->
     <script type="text/javascript" src="/assets/js/lib/Winwheel.js"></script>
@@ -328,22 +329,22 @@
                             <div class="container">
                               <div class="row row-cols-2 row-cols-md-4 g-2 justify-content-center">
                                 <div class="col">
-                                  <div class="bet-button">
+                                  <div onclick="powerSelected(1);" class="bet-button">
                                     <img src="/assets/images/spin-1.png" alt="Coinflip" />
                                   </div>
                                 </div>
                                 <div class="col">
-                                  <div class="bet-button">
+                                  <div onclick="powerSelected(2);" class="bet-button">
                                     <img src="/assets/images/spin-2.png" alt="Coinflip" />
                                   </div>
                                 </div>
                                 <div class="col">
-                                  <div class="bet-button">
+                                  <div onclick="powerSelected(5);" class="bet-button">
                                     <img src="/assets/images/spin-5.png" alt="Coinflip" />
                                   </div>
                                 </div>
                                 <div class="col">
-                                  <div class="bet-button">
+                                  <div onclick="powerSelected(10);" class="bet-button">
                                     <img src="/assets/images/spin-10.png" alt="Coinflip" />
                                   </div>
                                 </div>
@@ -616,6 +617,10 @@
     >
   <div class="modal-dialog">
     <div class="modal-content coinflip-container">
+       <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">
+        <img src="/assets/images/close-2-1.png" />
+       </button>
+     
       <!-- Coinflip Background Image -->
       <img src="/assets/images/coinflip-backgroung.png" alt="Map" class="coinflip-bg">
                                          <!-- Red 3X Images Centered Over Coinflip Image -->
