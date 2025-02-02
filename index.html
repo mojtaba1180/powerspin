@@ -13,6 +13,7 @@
     <!-- custom styles -->
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/wheel.css" />
+    <link rel="stylesheet" href="/assets/css/custom.css" />
     <!-- wheel lib -->
     <script type="text/javascript" src="/assets/js/lib/Winwheel.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -72,7 +73,7 @@
   
         <!-- balance section -->
         <div
-          class="balance-section d-flex flex-wrap align-items-center justify-content-center"
+          class="balance-section d-flex flex-wrap align-items-center justify-content-center "
         >
           <div class="balance-item total-balance">
             <div class="d-flex gap-4 align-items-center">
@@ -99,11 +100,11 @@
             <div class="balance-price">$3,400</div>
           </div>
         </div>
-        <div class="container" >
+        <div class="container " >
           <div class="row">
               <div class="row">
                 <!-- Left Column -->
-                <div class="col-12 col-md-12 col-lg-12 col-xl-4" >
+                <div class="col-12 col-md-12 col-lg-12 col-xl-3" >
                   <div  class="container" >
                     <div class="round-cooldown">
                       <div class="timer">00:02:11</div>
@@ -128,21 +129,7 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="modal fade" id="coinflipModal" tabindex="-1" aria-labelledby="coinflipModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content" style="background: transparent; border: none; display: flex; align-items: center; justify-content: center; position: relative;">
-                                    <!-- Coinflip Background Image -->
-                                    <img src="/assets/images/coinflip-backgroung.png" alt="Map" style="display: block; width: auto; height: 80vh;">
-                              
-                                    <!-- Red 3X Images Centered Over Coinflip Image -->
-                                    <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%;">
-                                      <img src="/assets/images/3X-Red.png" alt="red_3X" style="aspect-ratio: 1/1; width: 25%; height: auto;">
-                                      <img src="/assets/images/3X-Green.png" alt="red_3X" style="aspect-ratio: 1/1; width: 25%; height: auto;">
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              
+                           
                             </div>
                           </div>
                           <div class="roll-card" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pirateModal">
@@ -162,39 +149,39 @@
                             </div>
                           </div>
 
-<div class="modal fade" id="pirateModal" tabindex="-1" aria-labelledby="pirateModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
-  <div class="modal-dialog">
-    <div class="modal-content" style="background: transparent; border: none; display: flex; align-items: center; justify-content: center;">
-      <!-- Wrapper for all images -->
-      <div style="position: relative; width: 70vw;">
-        <!-- Map Image -->
-        <img src="/assets/images/map.png" alt="Map" style="
-          display: block;
-          width: 100%;
-          height: auto;
-        ">
+                          <div class="modal fade" id="pirateModal" tabindex="-1" aria-labelledby="pirateModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content" style="background: transparent; border: none; display: flex; align-items: center; justify-content: center;">
+                                <!-- Wrapper for all images -->
+                                <div style="position: relative; width: 70vw;">
+                                  <!-- Map Image -->
+                                  <img src="/assets/images/map.png" alt="Map" style="
+                                    display: block;
+                                    width: 100%;
+                                    height: auto;
+                                  ">
 
-        <!-- Pirate Image (Bottom-Left of Map) -->
-        <img src="/assets/images/pirate.png" alt="Pirate" style="
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 25%;
-          height: auto;
-        ">
+                                  <!-- Pirate Image (Bottom-Left of Map) -->
+                                  <img src="/assets/images/pirate.png" alt="Pirate" style="
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+                                    width: 25%;
+                                    height: auto;
+                                  ">
 
-        <!-- Box Image (Bottom-Right of Map) -->
-        <img src="/assets/images/treasure.png" alt="treasure" style="
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          width: 20%;
-          height: auto;
-        ">
-      </div>
-    </div>
-  </div>
-</div>
+                                  <!-- Box Image (Bottom-Right of Map) -->
+                                  <img src="/assets/images/treasure.png" alt="treasure" style="
+                                    position: absolute;
+                                    bottom: 0;
+                                    right: 0;
+                                    width: 20%;
+                                    height: auto;
+                                  ">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
         
                         <div class="rolls-container">
@@ -245,25 +232,25 @@
                               <div class="modal-dialog">
                                 <div class="modal-content" style="background: transparent; border: none; display: flex; align-items: center; justify-content: center;">
                                 <img src="/assets/images/power-spin.png" alt="power-spin" style="aspect-ratio: 1/1; width: auto; height: 68vh; margin-bottom: 10px;">
-                                <div style="
-  display: flex;
-  height: 150px;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  background: linear-gradient(to bottom left, #050424, #0C094E);
-  border: 2px solid #2D24B2;
-  border-radius: 5%;
-  text-align: center;
-  color: white;
-  font-size: 20px;
-">
-  <div style="display: flex; flex-direction: column; justify-content: center;">
-    <p style="font-size: large;">Select your</p>
-    <p style="font-size: large; color: white;">Powerspin Multiplier</p>
-  </div>
-</div>
+                                  <div style="
+                                      display: flex;
+                                      height: 150px;
+                                      justify-content: center;
+                                      align-items: center;
+                                      width: 100%;
+                                      max-width: 400px;
+                                      background: linear-gradient(to bottom left, #050424, #0C094E);
+                                      border: 2px solid #2D24B2;
+                                      border-radius: 5%;
+                                      text-align: center;
+                                      color: white;
+                                      font-size: 20px;
+                                    ">
+                                      <div style="display: flex; flex-direction: column; justify-content: center;">
+                                        <p style="font-size: large;">Select your</p>
+                                        <p style="font-size: large; color: white;">Powerspin Multiplier</p>
+                                      </div>
+                                  </div>
 
                                 </div>
                               </div>
@@ -273,7 +260,14 @@
                       </div>
         
                       <div class="history-container">
-                        <div class="history-title" style="color: #b4a56c;">history</div>
+                        <div class="history-title" >
+                          <div>
+                            history
+                          </div>
+                          <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-left"><path d="M17 7 7 17"/><path d="M17 17H7V7"/></svg>
+                          </div>
+                        </div>
                         <div class="history-content">
                           <p style="color: #6B5788;">
                             10:02 You have rolled <span style=" color: #D50A84;">5</span>. Won
@@ -313,7 +307,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-lg-12 col-xl-4">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-6">
                   <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 " style="display: flex ; flex-direction: column; align-items: center; justify-content: center;">
                       <div class="spinner-container">
@@ -438,35 +432,59 @@
                 </div>
                 </div>
                 <!-- Right Column -->
-                <div class="col-12 col-md-12 col-lg-12 col-xl-4" style="display: flex; ">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-3" style="display: flex; ">
                   <div class="container" >
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;">
                       <div class="chat-container " style="width: 100%;">
                         <div class="chat-header">
-                          <span style="color: #b4a56c;">Chat</span> 
-                          <span style="color: #6B5788;">(191 players online)</span>
+                          <div>
+                            <span style="color: #b4a56c;">Chat</span> 
+                            <span style="color: #6B5788;">(191 players online)</span>
+                          </div>
+                          <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-left"><path d="M17 7 7 17"/><path d="M17 17H7V7"/></svg>
+                          </div>
                       </div>
                       
                         <div class="chat-messages">
                           <div style="color: #6B5788; font-size: small;">
+                            <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                             <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                              <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                             <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                             <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                             <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                             <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                             <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+                             <div class="chat-message-item">
                               <div style="display: flex ; flex-direction: row;"><p>10:02 - </p><p style="color: #D50A84;"> Player 101</p>:</div>
                               <p>I love it! Count me in for that side bet!</p>
+                            </div>
+
                           </div>
                         </div>
                         <div class="chat-input">
@@ -578,8 +596,57 @@
         </p>
       </div>
     </footer>
+
+
+
+
+
+
+
+
+
+<!-- Modals -->
+
+
+
+  <div class="modal fade" id="coinflipModal" tabindex="-1" aria-labelledby="coinflipModalLabel"
+    aria-hidden="true" 
+    data-bs-backdrop="static" 
+    data-bs-keyboard="true"
+    >
+  <div class="modal-dialog">
+    <div class="modal-content coinflip-container">
+      <!-- Coinflip Background Image -->
+      <img src="/assets/images/coinflip-backgroung.png" alt="Map" class="coinflip-bg">
+                                         <!-- Red 3X Images Centered Over Coinflip Image -->
+      <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%;">
+          <img src="/assets/images/3X-Red.png" id="flip_o_coin_red"  alt="red_3X" style="aspect-ratio: 1/1; width: 25%; height: auto;">
+          <img src="/assets/images/3X-Green.png" id="flip_o_coin_green"  alt="red_3X" style="aspect-ratio: 1/1; width: 25%; height: auto;">
+      </div>
+      <div class="coin-container"  onclick="flipCoin()">
+        <div class="coin" id="coin">
+          <!-- Front Face: Red -->
+          <div class="face front">
+            <img src="/assets/images/green-coin.png" alt="Red Side">
+          </div>
+          <!-- Back Face: Green -->
+          <div class="face back">
+            <img src="/assets/images/red-coin.png" alt="Green Side">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
     <!-- wheel config -->
     <script type="text/javascript" src="/assets/js/wheel.js"></script>
+    <script type="text/javascript" src="/assets/js/custom.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-wEmeIV1mKuiNp12H1mP6zKRX0L94uW5oec5Ph3p0nK0X4pFqnjKwWiRJFeFsAg4"

@@ -1,0 +1,67 @@
+/* Container for the modal content */
+.coinflip-container {
+  background: transparent;
+  border: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 80vh;
+  justify-content: center;
+}
+
+/* Background image styling */
+.coinflip-bg {
+  display: block;
+  width: 100%;
+  height: 80vh;
+}
+
+/* The container that gives a perspective to the 3D coin */
+.coin-container {
+  position: absolute;
+  width: 100%;
+  height: 26%;
+  transform: translateX(-1%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  bottom: 0;
+}
+
+/* The coin element itself */
+.coin {
+  width: 10%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 2s ease-out;
+}
+
+/* Both faces share these common styles */
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.face img {
+  width: 48px;
+}
+
+/* The front face (red) – no extra rotation */
+.front {
+  transform: rotateY(0deg);
+}
+
+/* The back face (green) – rotated 180deg so that it shows when flipped */
+.back {
+  transform: rotateY(180deg);
+}
+
+/* (Optional) Style the flip button */
+.flip-btn {
+  position: absolute;
+  bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}

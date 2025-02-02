@@ -1,11 +1,25 @@
 /* Sets the background image for the wheel */
 .the_wheel {
   background-image: url("/assets/images/wheel_design.png");
-  background-position: 47px -20px;
+  background-position: 47% 0;
   background-repeat: no-repeat;
-  background-size: 440px;
+  background-size: 95%;
+  padding-top: calc(21% - -2px);
 }
-
+@media only screen and (max-width: 768px) {
+  .the_wheel {
+    background-position: 47% 0;
+    /* background-size: 96%; */
+    padding-top: calc(21% - 2px);
+  }
+}
+@media only screen and (max-width: 450px) {
+  .the_wheel {
+    /* background-position: 47% 0;
+    background-size: 100%; */
+    padding-top: calc(20% - 3px);
+  }
+}
 /* Do some css reset on selected elements */
 h1,
 p {

@@ -164,7 +164,7 @@ body {
   color: #b4a56c;
 }
 .container {
-   max-width: 98vw !important;
+  max-width: 1440px !important;
 }
 
 .main {
@@ -264,7 +264,7 @@ body {
   bottom: 20px;
   display: flex !important;
   align-items: center !important;
-justify-content: center !;
+  justify-content: center !;
 }
 
 .round-cooldown .timer {
@@ -307,9 +307,9 @@ justify-content: center !;
 }
 
 ::placeholder {
-  color: #6B5788 !important;
+  color: #6b5788 !important;
   font-size: small;
-  opacity: 1; 
+  opacity: 1;
 }
 
 .roll-card img {
@@ -341,8 +341,12 @@ justify-content: center !;
 }
 
 .history-title {
-  border-bottom: 1px solid var(--light-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.322);
   text-transform: capitalize;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  padding-bottom: 10px;
 }
 
 .history-content {
@@ -355,7 +359,7 @@ justify-content: center !;
 
 .history-content p {
   font-size: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .history-content p span {
@@ -391,8 +395,10 @@ justify-content: center !;
 
 .chat-header {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.322);
   color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 .chat-messages {
@@ -401,6 +407,9 @@ justify-content: center !;
   padding: 1rem;
 }
 
+.chat-message-item {
+  margin-bottom: 8px;
+}
 .chat-message {
   margin-bottom: 0.5rem;
   color: white;
@@ -408,7 +417,7 @@ justify-content: center !;
 
 .chat-input {
   padding: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.322);
 }
 
 .chat-input input {
@@ -422,7 +431,7 @@ justify-content: center !;
   padding: 20px;
   /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); */
   text-align: center;
-  margin-top: -120px;
+  margin-top: 0;
 }
 .bet-section-place {
   background: rgba(0, 0, 0, 0.3);
@@ -614,6 +623,9 @@ footer a:hover {
   .img-fluid {
     width: 65%;
   }
+  .bet-section {
+    padding: 0px;
+  }
   .bet-section-place {
     width: 80%;
   }
@@ -715,4 +727,3 @@ footer a:hover {
     width: 20px;
   }
 }
-
