@@ -599,12 +599,15 @@ footer a:hover {
   .round-cooldown .timer {
     font-size: 20px;
   }
-}
-
-@media only screen and (max-width: 768px) {
   .chat-container {
     margin-top: 0;
   }
+  .bet-section {
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
   .footer-top-section {
     text-align: center;
     display: flex;
@@ -730,9 +733,9 @@ footer a:hover {
     height: 40px;
   }
 
-  .bet-history-item img {
+  /* .bet-history-item img {
     width: 20px;
-  }
+  } */
 }
 .text-container {
   display: inline-block;
