@@ -157,34 +157,43 @@
                               </div>
                             </div>
                           </div>
-
                           <div class="modal fade" id="pirateModal" tabindex="-1" aria-labelledby="pirateModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content" style="background: transparent; border: none; display: flex; align-items: center; justify-content: center; position: relative;">
-                          
-                                <!-- Horizontal Line (spans full height of modal) -->
-                                <hr style="position: absolute;  left: 50%; height: 100vh; width: 2px; border: none; background-color: aqua; z-index: 99;">
-
-                          
                                 <!-- Wrapper for all images -->
                                 <div style="position: relative; width: 70vw; z-index: 2;">
-
-                                  <div class="row" style="width: 50%; position: absolute; top: 30%; left: 44%;">
-                                      <div class="col">
-                                        <img src="/assets/images/box.png" alt="box" style="width: 80px; filter: drop-shadow(0 0 15px rgba(255, 11, 27, 0.7));">
-
-
-                                      </div>
-                                      <div class="col">
-                                        <img src="/assets/images/box.png" alt="box" style="width: 80px;">
-                                      </div>
-                                      <div class="col">
-                                        <img src="/assets/images/box.png" alt="box" style="width: 80px;">
-                                      </div>
-                                      <div class="col">
-                                        <img src="/assets/images/box.png" alt="box" style="width: 80px;">
-                                      </div>
-                                  </div>
+                                  
+                                  <img src="/assets/images/your-chests.png" alt="title" style="position: absolute; top: 10%; left: 50%; transform: translateX(-50%); width: 30%; height: auto;">
+                                  <div class="row box-container" style="width: 50%; position: absolute; top: 30%; left: 44%;">
+                                    <div class="col" onclick="selectBox(this)">
+                                        <div class="box-wrapper">
+                                            <img src="/assets/images/box.png" alt="box" class="box selected" draggable="false">
+                                            <img src="/assets/images/aim.png" alt="selected" class="aim">
+                                            <!-- <img src="/assets/images/icon.png" alt="icon" class="icon"> -->
+                                        </div>
+                                    </div>
+                                    <div class="col" onclick="selectBox(this)">
+                                        <div class="box-wrapper">
+                                            <img src="/assets/images/box.png" alt="box" class="box" draggable="false">
+                                            <img src="/assets/images/aim.png" alt="selected" class="aim">
+                                            <img src="/assets/images/coin.png" alt="icon" class="icon">
+                                        </div>
+                                    </div>
+                                    <div class="col" onclick="selectBox(this)">
+                                        <div class="box-wrapper">
+                                            <img src="/assets/images/box.png" alt="box" class="box" draggable="false">
+                                            <img src="/assets/images/aim.png" alt="selected" class="aim">
+                                            <img src="/assets/images/fork.png" alt="icon" class="icon">
+                                        </div>
+                                    </div>
+                                    <div class="col" onclick="selectBox(this)">
+                                        <div class="box-wrapper">
+                                            <img src="/assets/images/box.png" alt="box" class="box" draggable="false">
+                                            <img src="/assets/images/aim.png" alt="selected" class="aim">
+                                            <img src="/assets/images/bottle.png" alt="icon" class="icon">
+                                        </div>
+                                    </div>
+                                </div>
                                   <!-- Map Image -->
                                   <img src="/assets/images/map.png" alt="Map" style="
                                     display: block;
@@ -641,7 +650,37 @@
        </button>
      
       <!-- Coinflip Background Image -->
-      <img src="/assets/images/coinflip-backgroung.png" alt="Map" class="coinflip-bg">
+      <div class="coinflip-bg" id="coinflip-bg">
+        <img src="assets/images/coin-o-flip-heade.png" alt="header" class="coinflip-header">
+        <div id="coinflip-bg" class="coinflip-bg">
+          <img id="default-bg" src="assets/images/coin-flip-bg-default.png" alt="background" class="coinflip-bg-img">
+        </div>
+        <img src="assets/images/coin-flip-bg-red.png" alt="background" class="coinflip-bg-img coinflip-changed" id="bg-red">
+        <img src="assets/images/coin-flip-bg-green.png" alt="background" class="coinflip-bg-img coinflip-changed" id="bg-green">
+      
+        <div class="coinflip-footer">
+          <img src="assets/images/coinflip-footer.png" alt="footer">
+          <div class="coin-container coin-box" onclick="flipCoin()">
+            <div class="coin-flip" id="coin">
+              <!-- Front Face: Green -->
+              <div class="face front flipper">
+                <img src="/assets/images/green-coin.png" alt="Green Side">
+                <span>
+                  $
+                </span>
+              </div>
+              <!-- Back Face: Red -->
+              <div class="face back flipper">
+                <img src="/assets/images/red-coin.png" alt="Red Side">
+                <span>
+                  $
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; width: 100%;">
         <div class="coin-container" style="position: relative; display: flex; align-items: center; justify-content: center;">
             <img src="/assets/images/red-coin.png" alt="red-coin" style="aspect-ratio: 1/1; width: 25%; height: auto;">
@@ -661,24 +700,7 @@
     </div>
     
                                       
-      <div class="coin-container"  onclick="flipCoin()">
-        <div class="coin-flip" id="coin">
-          <!-- Front Face: Red -->
-          <div class="face front">
-            <img src="/assets/images/green-coin.png" alt="Red Side">
-            <span>
-              $
-            </span>
-          </div>
-          <!-- Back Face: Green -->
-          <div class="face back">
-            <img src="/assets/images/red-coin.png" alt="Green Side">
-            <span>
-              $
-            </span>
-          </div>
-        </div>
-      </div>
+
       
     </div>
   </div>
@@ -763,6 +785,15 @@
         myModal.show();
       });
     </script>
+<script>
+  function selectBox(selectedCol) {
+      document.querySelectorAll('.box').forEach(box => box.classList.remove('selected'));
+      document.querySelectorAll('.icon').forEach(icon => icon.style.display = 'block');
+
+      selectedCol.querySelector('.box').classList.add('selected');
+      selectedCol.querySelector('.icon').style.display = 'none';
+  }
+</script>
     
   </body>
 </html>

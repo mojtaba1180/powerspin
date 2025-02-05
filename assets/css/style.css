@@ -765,3 +765,126 @@ footer a:hover {
   border: 1.5px solid #44117b; /* Border color */
   box-shadow: 0px 4px 3px #9526e9; /* Purple shadow at the bottom */
 }
+.box-container {
+  display: flex;
+  position: relative;
+}
+
+.box-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.box {
+  width: 100%;
+  transition: filter 0.3s ease;
+  user-select: none; /* Prevent selection */
+  pointer-events: none; /* Prevent dragging */
+}
+
+.selected {
+  filter: drop-shadow(0 0 2px red) drop-shadow(0 0 2px red) drop-shadow(0 0 2px red) drop-shadow(0 0 4px red);
+}
+
+.aim {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+  height: auto;
+  display: none;
+  user-select: none; /* Prevent selection */
+  pointer-events: none; /* Prevent dragging */
+}
+
+.selected + .aim {
+  display: block;
+}
+
+.icon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 30%; /* Adjust size */
+  height: auto;
+}
+.coinflip-bg-img {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  display: none; /* Hide initially */
+}
+
+.coinflip-header {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 80%;
+}
+
+.coinflip-footer {
+  position: absolute;
+  left: 50%;
+  bottom: -5%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 70%;
+}
+
+.coinflip-footer img {
+  width: 100%;
+}
+
+.coin-box {
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  left: -2% !important;
+  transform: translateX(-50%);
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.flipper span {
+  position: absolute;
+  left: 70% !important;
+}
+
+.coinflip-changed {
+  width: 55% !important;
+  display: block; /* Make it visible when applied */
+}
+
+#bg-green {
+  display: none; /* Ensure the green background is hidden initially */
+}
+
+#bg-red {
+  display: none; /* Ensure the red background is hidden initially */
+}
+#default-bg {
+  display: block;
+  width: 60%;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Background images for Green and Red */
+.bg-background {
+  display: none;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  display: none; /* Hide initially */
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1s ease-in-out;
+}
