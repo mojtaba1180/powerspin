@@ -43,13 +43,13 @@ function flipCoin() {
 
     if (outcome === 0) {
       // Show red background for the front side (Red = outcome 0)
-      coinflipBg.classList.add("coinflip-bg-green");
-      bgGreen.style.display = "block"; // Show green background
+      coinflipBg.classList.add("coinflip-bg-red");
+      bgRed.style.display = "block"; // Show red background
       defaultBg.style.display = "none"; // Hide default background
     } else {
       // Show green background for the back side (Green = outcome 1)
-      coinflipBg.classList.add("coinflip-bg-red");
-      bgRed.style.display = "block"; // Show red background
+      coinflipBg.classList.add("coinflip-bg-green");
+      bgGreen.style.display = "block"; // Show green background
       defaultBg.style.display = "none"; // Hide default background
     }
   }, 2000); // The timeout matches the coin flip animation duration (2 seconds)

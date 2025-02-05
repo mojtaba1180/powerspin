@@ -14,6 +14,7 @@
   display: block;
   width: 100%;
   height: 80vh;
+  max-height: 80vh;
 }
 
 /* The container that gives a perspective to the 3D coin */
@@ -26,7 +27,6 @@
   align-items: center;
   justify-content: center;
   perspective: 1000px;
-  bottom: 0;
 }
 
 /* The coin element itself */
@@ -40,9 +40,9 @@
 /* Both faces share these common styles */
 .face {
   position: absolute;
-  width: 100%;
+  width: fit-content !important;
   height: 100%;
-  backface-visibility: hidden;
+  backface-visibility: hidden; /* Hide the backface of the coin */
 }
 .face span {
   font-size: 20px;
@@ -56,6 +56,19 @@
 
 .face img {
   width: 48px;
+}
+
+@media (max-width: 768px) {
+  .face img {
+    width: 40px; /* Smaller size for mobile devices */
+  }
+}
+
+/* Optional: For even smaller screens (like phones in portrait mode) */
+@media (max-width: 480px) {
+  .face img {
+    width: 35px; /* Even smaller size for very small screens */
+  }
 }
 
 /* The front face (red) – no extra rotation */

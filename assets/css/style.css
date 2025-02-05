@@ -809,30 +809,41 @@ footer a:hover {
   width: 30%; /* Adjust size */
   height: auto;
 }
+.coinflip-bg{
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content !important;
+}
 .coinflip-bg-img {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  display: none; /* Hide initially */
+  display: block;
+  width: 50% !important;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1s ease-in-out;
 }
 
 .coinflip-header {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 2;
-  width: 80%;
+  width: 60%;
+}
+.coinflip-body{
+  height: 100%;
+  width: 100%;
+  margin-top: -10%;
+}
+.flipper{
+  transform: translate(-15%, 0) !important;
+  margin-top: -10%;
 }
 
 .coinflip-footer {
-  position: absolute;
-  left: 50%;
-  bottom: -5%;
-  transform: translateX(-50%);
   z-index: 2;
-  width: 70%;
+  margin-top: -10%;
+  width: 60%;
+  position: relative;
+  display: flex;
 }
 
 .coinflip-footer img {
@@ -840,24 +851,10 @@ footer a:hover {
 }
 
 .coin-box {
-  position: absolute;
-  top: 0;
   z-index: 3;
-  left: -2% !important;
-  transform: translateX(-50%);
   display: flex;
   justify-items: center;
   align-items: center;
-}
-
-.flipper span {
-  position: absolute;
-  left: 70% !important;
-}
-
-.coinflip-changed {
-  width: 55% !important;
-  display: block; /* Make it visible when applied */
 }
 
 #bg-green {
@@ -869,7 +866,7 @@ footer a:hover {
 }
 #default-bg {
   display: block;
-  width: 60%;
+  width: 50% !important;
   background-size: cover;
   background-position: center;
   transition: opacity 1s ease-in-out;
@@ -878,10 +875,6 @@ footer a:hover {
 /* Background images for Green and Red */
 .bg-background {
   display: none;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
   width: 60%;
   display: none; /* Hide initially */
   background-size: cover;
