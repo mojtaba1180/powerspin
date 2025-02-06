@@ -663,28 +663,22 @@
         <div class="coinflip-footer">
           <img src="assets/images/coinflip-footer.png" alt="footer">
           <div class="coin-container coin-box" onclick="flipCoin()">
-            <div class="coin-flip" id="coin">
+            <div class="coin-flip"  style="cursor: pointer;" id="coin">
               <!-- Front Face: Green -->
-              <div class="face front flipper">
+              <div class="face front">
                 <img src="/assets/images/green-coin.png" alt="Green Side">
-              <div style="display: flex !important;">
-                  <span>
-                    $
-                  </span>
-                </div>
+                <span>$</span>
               </div>
               <!-- Back Face: Red -->
-              <div class="face back flipper">
+              <div class="face back">
                 <img src="/assets/images/red-coin.png" alt="Red Side">
-                <div style="display: flex !important;">
-                  <span>
-                    $
-                  </span>
-                </div>
+                <span >$</span>
               </div>
             </div>
+            
           </div>
         </div>
+        
       </div>
       
       <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; width: 100%;">

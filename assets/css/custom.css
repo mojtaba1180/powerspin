@@ -14,7 +14,6 @@
   display: block;
   width: 100%;
   height: 80vh;
-  max-height: 80vh;
 }
 
 /* The container that gives a perspective to the 3D coin */
@@ -32,6 +31,7 @@
 /* The coin element itself */
 .coin-flip {
   width: 10%;
+  margin-top: -5%;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 2s ease-out;
@@ -40,10 +40,14 @@
 /* Both faces share these common styles */
 .face {
   position: absolute;
-  width: fit-content !important;
+  width: 100%;
   height: 100%;
-  backface-visibility: hidden; /* Hide the backface of the coin */
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .face span {
   font-size: 20px;
   font-weight: bold;
@@ -51,34 +55,23 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-56%, 21%);
+  transform: translate(-50%, -50%);
 }
 
 .face img {
   width: 48px;
 }
 
-@media (max-width: 768px) {
-  .face img {
-    width: 40px; /* Smaller size for mobile devices */
-  }
-}
-
-/* Optional: For even smaller screens (like phones in portrait mode) */
-@media (max-width: 480px) {
-  .face img {
-    width: 35px; /* Even smaller size for very small screens */
-  }
-}
-
-/* The front face (red) – no extra rotation */
+/* The front face (green) – no extra rotation */
 .front {
   transform: rotateY(0deg);
+  width: 100% !important;
 }
 
-/* The back face (green) – rotated 180deg so that it shows when flipped */
+/* The back face (red) – rotated 180deg so that it shows when flipped */
 .back {
   transform: rotateY(180deg);
+  width: 100% !important;
 }
 
 /* (Optional) Style the flip button */
@@ -99,6 +92,7 @@
   cursor: pointer;
   user-select: none !important;
 }
+
 .multiplier-option-label {
   position: absolute;
   top: 50%;
@@ -115,7 +109,6 @@
 
 /* When the RADIO is checked, apply a border to the sibling <img> */
 .multiplier-option input[type="radio"]:checked + img {
-  /* outline: 3px solid gold; */
   border-radius: 4px;
 }
 

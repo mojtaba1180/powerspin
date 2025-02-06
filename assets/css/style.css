@@ -833,10 +833,6 @@ footer a:hover {
   width: 100%;
   margin-top: -10%;
 }
-.flipper{
-  transform: translate(-15%, 0) !important;
-  margin-top: -10%;
-}
 
 .coinflip-footer {
   z-index: 2;
@@ -844,10 +840,11 @@ footer a:hover {
   width: 60%;
   position: relative;
   display: flex;
+  align-items: center;
 }
 
 .coinflip-footer img {
-  width: 100%;
+  width: 100% !important;
 }
 
 .coin-box {
