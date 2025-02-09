@@ -162,7 +162,8 @@ function buildScene() {
   const padding = 40;
   const boardWidth = CANVAS_WIDTH - padding * 2;
   const pegGap = boardWidth / (gameState.rows + 2);
-  const multiplierHeight = 50;
+  // Reduced multiplierHeight to 30 to make the zones more rectangular
+  const multiplierHeight = 30;
   const totalRows = gameState.rows;
   // Adjust startY so that the board fits within the canvas (items stick to the ground)
   const startY = 50; // Adjusted for better vertical positioning
@@ -225,14 +226,18 @@ function buildScene() {
     return Matter.Bodies.rectangle(
       padding + i * zoneWidth + zoneWidth / 2,
       zoneY,
-      zoneWidth - 4,
+      zoneWidth,
       multiplierHeight,
       {
         isStatic: true,
         isSensor: true,
         label: "multiplier-" + mult.value,
         render: {
-          fillStyle: mult.color || "#f59e0b",
+          fillStyle: "#1e033a",
+          strokeStyle: "#6A15C5",
+          lineWidth: 2,
+          // Custom property for inset shadow gradient height
+          gradientHeight: 20,
         },
       },
     );
@@ -246,7 +251,7 @@ function buildScene() {
     Matter.Events.off(render, "afterRender", zoneTextAfterRenderHandler);
   }
 
-  // Define a new afterRender event handler to draw text on each zone
+  // Define a new afterRender event handler to draw text and inset shadow on each zone
   zoneTextAfterRenderHandler = function () {
     const ctx = render.context;
     const { bounds, options } = render;
@@ -263,13 +268,41 @@ function buildScene() {
     ctx.font = "bold 16px Arial";
     ctx.fillStyle = "white";
     zones.forEach((zone) => {
+      // Draw the multiplier text
       const val = parseFloat(zone.label.split("-")[1]);
       ctx.fillText(val + "x", zone.position.x, zone.position.y);
+
+      // Draw the inset shadow along the bottom of the zone
+      const zWidth = zoneWidth; // Use the known zoneWidth
+      const zHeight = multiplierHeight;
+      const zX = zone.position.x - zWidth / 2;
+      const zY = zone.position.y - zHeight / 2;
+      const gradH = zone.render.gradientHeight || 20;
+
+      ctx.save();
+      // Clip to the zone rectangle to confine the gradient
+      ctx.beginPath();
+      ctx.rect(zX, zY, zWidth, zHeight);
+      ctx.clip();
+
+      // Create a vertical gradient starting from the bottom edge upward
+      let grad = ctx.createLinearGradient(
+        0,
+        zY + zHeight,
+        0,
+        zY + zHeight - gradH,
+      );
+      grad.addColorStop(0, "#6A15C5"); // Full stroke color at the bottom
+      grad.addColorStop(1, "rgba(106,21,197,0)"); // Transparent at the top of the gradient
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(zX, zY, zWidth, zHeight);
+      ctx.restore();
     });
     ctx.restore();
   };
 
-  // Add the new listener
+  // Add the new afterRender listener
   Matter.Events.on(render, "afterRender", zoneTextAfterRenderHandler);
 
   // Set the viewport (camera view)
@@ -305,7 +338,13 @@ function dropBall() {
     friction: 4,
     frictionAir: 0.02,
     density: 0.1,
-    render: { fillStyle: "#ff4500" },
+    render: {
+      fillStyle: "#410b7b",
+      strokeStyle: "#7819dd",
+      lineWidth: 2,
+      // Custom property for inset shadow gradient height
+      gradientHeight: 20,
+    },
   });
   Matter.Body.setVelocity(ball, { x: 0, y: 2 });
   Matter.World.add(engine.world, ball);
