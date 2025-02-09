@@ -594,6 +594,53 @@ footer a:hover {
   position: static;
 }
 
+.text-container {
+  display: inline-block;
+  position: relative;
+  font-family: "Luckiest Guy", cursive;
+  color: #ffcc00;
+  text-shadow: 2px 2px 0px #b8860b, 4px 4px 2px rgba(0, 0, 0, 0.5);
+}
+.coin-row {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.coin {
+  aspect-ratio: 3/1;
+  width: 60px; /* Fixed width for each box */
+  height: auto; /* Fixed height for each box */
+  background-color: #1f033d; /* Purple box color */
+  color: white; /* White text */
+  font-size: 12px; /* Adjust font size */
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #44117b; /* Border color */
+  box-shadow: 0px 4px 3px #9526e9; /* Purple shadow at the bottom */
+}
+
+/* Responsive container for the canvas */
+#canvasContainer {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+/* Make the canvas fluid */
+#gameCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pachinka-content {
+  aspect-ratio: 1/1;
+  height: 80vh;
+}
+
 /* Mobile styles */
 @media only screen and (max-width: 1200px) {
   .round-cooldown .timer {
@@ -605,9 +652,16 @@ footer a:hover {
   .bet-section {
     margin-top: 20px;
   }
+  .pachinka-content {
+    height: 60vh;
+  }
 }
 
 @media only screen and (max-width: 768px) {
+  .pachinka-content {
+    aspect-ratio: inherit;
+    height: fit-content;
+  }
   .footer-top-section {
     text-align: center;
     display: flex;
@@ -736,32 +790,4 @@ footer a:hover {
   /* .bet-history-item img {
     width: 20px;
   } */
-}
-.text-container {
-  display: inline-block;
-  position: relative;
-  font-family: "Luckiest Guy", cursive;
-  color: #ffcc00;
-  text-shadow: 2px 2px 0px #b8860b, 4px 4px 2px rgba(0, 0, 0, 0.5);
-}
-.coin-row {
-  padding: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.coin {
-  aspect-ratio: 3/1;
-  width: 60px; /* Fixed width for each box */
-  height: auto; /* Fixed height for each box */
-  background-color: #1f033d; /* Purple box color */
-  color: white; /* White text */
-  font-size: 12px; /* Adjust font size */
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1.5px solid #44117b; /* Border color */
-  box-shadow: 0px 4px 3px #9526e9; /* Purple shadow at the bottom */
 }
