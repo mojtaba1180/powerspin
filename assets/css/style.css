@@ -641,6 +641,149 @@ footer a:hover {
   height: 82vh;
 }
 
+.text-container {
+  display: inline-block;
+  position: relative;
+  font-family: "Luckiest Guy", cursive;
+  color: #ffcc00;
+  text-shadow: 2px 2px 0px #b8860b, 4px 4px 2px rgba(0, 0, 0, 0.5);
+}
+.coin-row {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.coin {
+  aspect-ratio: 3/1;
+  width: 60px; /* Fixed width for each box */
+  height: auto; /* Fixed height for each box */
+  background-color: #1f033d; /* Purple box color */
+  color: white; /* White text */
+  font-size: 12px; /* Adjust font size */
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #44117b; /* Border color */
+  box-shadow: 0px 4px 3px #9526e9; /* Purple shadow at the bottom */
+}
+.box-container {
+  display: flex;
+  position: relative;
+}
+
+.box-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.box {
+  width: 100%;
+  transition: filter 0.3s ease;
+  user-select: none; /* Prevent selection */
+  pointer-events: none; /* Prevent dragging */
+}
+
+.selected {
+  filter: drop-shadow(0 0 2px red) drop-shadow(0 0 2px red)
+    drop-shadow(0 0 2px red) drop-shadow(0 0 4px red);
+}
+
+.aim {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+  height: auto;
+  display: none;
+  user-select: none; /* Prevent selection */
+  pointer-events: none; /* Prevent dragging */
+}
+
+.selected + .aim {
+  display: block;
+}
+
+.icon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 30%; /* Adjust size */
+  height: auto;
+}
+.coinflip-bg {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content !important;
+}
+.coinflip-bg-img {
+  display: block;
+  width: 50% !important;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1s ease-in-out;
+}
+
+.coinflip-header {
+  z-index: 2;
+  width: 60%;
+}
+.coinflip-body {
+  height: 100%;
+  width: 100%;
+  margin-top: -10%;
+}
+
+.coinflip-footer {
+  z-index: 2;
+  margin-top: -10%;
+  width: 60%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.coinflip-footer img {
+  width: 100% !important;
+}
+
+.coin-box {
+  z-index: 3;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+#bg-green {
+  display: none; /* Ensure the green background is hidden initially */
+}
+
+#bg-red {
+  display: none; /* Ensure the red background is hidden initially */
+}
+#default-bg {
+  display: block;
+  width: 50% !important;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Background images for Green and Red */
+.bg-background {
+  display: none;
+  width: 60%;
+  display: none; /* Hide initially */
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1s ease-in-out;
+}
+
 /* Mobile styles */
 @media only screen and (max-width: 1200px) {
   .round-cooldown .timer {

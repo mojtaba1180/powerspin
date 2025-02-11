@@ -18,9 +18,8 @@
     <!-- wheel lib -->
     <script type="text/javascript" src="/assets/js/lib/Winwheel.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <style>
            @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
@@ -242,7 +241,7 @@
                                   </div>
                                 </div>
                               </div>
-                            
+                              
                             </div>
                           </div>
                           <div class="roll-card" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#powerspinModal">
@@ -632,8 +631,8 @@
         <div class="coinflip-body">
           <div id="coinflip-bg" class="coinflip-bg">
             <img id="default-bg" src="assets/images/coin-flip-bg-default.png" alt="background" class="coinflip-bg-img coinflip-changed" >
-            <img src="assets/images/coin-flip-bg-red.png" alt="background" class="coinflip-bg-img coinflip-changed" id="bg-red">
-            <img src="assets/images/coin-flip-bg-green.png" alt="background" class="coinflip-bg-img coinflip-changed" id="bg-green">
+            <img src="assets/images/coin-flip-bg-red.png" alt="background" class="coinflip-bg-img coinflip-changed" style="display: none;" id="bg-red">
+            <img src="assets/images/coin-flip-bg-green.png" alt="background" class="coinflip-bg-img coinflip-changed" style="display: none;"  id="bg-green">
           </div>
         </div>
       
@@ -743,9 +742,6 @@
   </div>
 </div>
 
-
-
-
 <!-- Responsive Modal for Plinko -->
 <div class="modal fade" id="pachinkaModal" tabindex="-1" aria-labelledby="pachinkaModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
   <!-- Use modal-dialog-centered and modal-fullscreen-sm-down for responsiveness -->
@@ -820,15 +816,9 @@
   </div>
 </div>
 
-
-
-
-
-
     <!-- wheel config -->
     <script type="text/javascript" src="/assets/js/wheel.js"></script>
-        <script type="text/javascript" src="/assets/js/plinko.js"></script>
-
+    <script type="text/javascript" src="/assets/js/plinko.js"></script>
     <script type="text/javascript" src="/assets/js/custom.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
