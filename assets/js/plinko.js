@@ -1,62 +1,55 @@
 /**
- * Game settings
+ * Approaches to prevent the ball from flying off-screen:
+ *
+ * Approach #1: Place the ball directly above the target zone (no horizontal velocity).
+ *   - If a target zone is selected, set the ball's x-position exactly to that zone's x.
+ *   - This guarantees the ball drops straight down into the chosen zone.
+ *
+ * Approach #2: Clamp the horizontal velocity (used in the code below).
+ *   - The ball always starts from the center at the top.
+ *   - If a target zone is selected, apply a small horizontal velocity toward that zone.
+ *   - Limit (clamp) the maximum horizontal speed so the ball does not shoot off-screen.
+ *
+ * Important note about multiple zones with the same multiplier:
+ *   - gameState.targetZone represents the index of the zone, not the multiplier value.
+ *   - For example, if the array of zones is:
+ *       Index:  0   1   2   3   4   5   6   7   8   9
+ *       Value: 1x  2x  5x  2x  5x  1x  1x 10x  1x  1x
+ *     If you want the first 1x zone, set gameState.targetZone = 0.
+ *     For the 10x zone, set gameState.targetZone = 7, etc.
  */
+
+// -------------------------------------------------
+// Plinko Game with Target Zone Selection (Approach #2)
+// -------------------------------------------------
+
+// -------------------------
+// Game Settings & Constants
+// -------------------------
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 450;
 
-// Initial configuration for Plinko multipliers
+// Plinko multiplier configurations
 const PLINKO_CONFIG = {
   low: {
     8: [
-      { value: 0.5, color: "#6A15C5" },
-      { value: 1, color: "#6A15C5" },
-      { value: 2, color: "#6A15C5" },
-      { value: 3, color: "#6A15C5" },
-      { value: 5, color: "#6A15C5" },
-    ],
-    16: [
-      { value: 0.3, color: "#6A15C5" },
-      { value: 0.5, color: "#6A15C5" },
       { value: 1, color: "#6A15C5" },
       { value: 2, color: "#6A15C5" },
       { value: 5, color: "#6A15C5" },
-    ],
-  },
-  medium: {
-    8: [
-      { value: 1, color: "#6A15C5" },
       { value: 2, color: "#6A15C5" },
       { value: 5, color: "#6A15C5" },
+      { value: 1, color: "#6A15C5" },
+      { value: 1, color: "#6A15C5" },
       { value: 10, color: "#6A15C5" },
-    ],
-    16: [
-      { value: 0.3, color: "#6A15C5" },
-      { value: 0.7, color: "#6A15C5" },
       { value: 1, color: "#6A15C5" },
-      { value: 2, color: "#6A15C5" },
-      { value: 3, color: "#6A15C5" },
-    ],
-  },
-  high: {
-    8: [
-      { value: 0.5, color: "#6A15C5" },
-      { value: 1.5, color: "#6A15C5" },
-      { value: 3, color: "#6A15C5" },
-      { value: 10, color: "#6A15C5" },
-    ],
-    16: [
-      { value: 0.3, color: "#6A15C5" },
-      { value: 0.5, color: "#6A15C5" },
       { value: 1, color: "#6A15C5" },
-      { value: 1.5, color: "#6A15C5" },
-      { value: 3, color: "#6A15C5" },
     ],
   },
 };
 
-/**
- * Initial game state
- */
+// -------------------------
+// Game State & DOM Elements
+// -------------------------
 const gameState = {
   mode: "manual",
   betAmount: 10,
@@ -65,9 +58,12 @@ const gameState = {
   isRunning: false,
   balance: 1000,
   sound: true,
+  targetZone: 6, // The index of the target multiplier zone
 };
 
-// DOM elements for the control panel
+// for change target multiplier zone
+//  const forceMagnitude = 0.00005 * dx; for setting this value
+
 const balanceDisplay = document.getElementById("balanceDisplay");
 const betInput = document.getElementById("betInput");
 const riskSelect = document.getElementById("riskSelect");
@@ -75,7 +71,11 @@ const rowsSelect = document.getElementById("rowsSelect");
 const sendBallButton = document.getElementById("sendBallButton");
 const canvas = document.getElementById("gameCanvas");
 
-// Update the balance display
+// -------------------------
+// Helper Functions
+// -------------------------
+
+// Update the displayed balance
 function updateBalanceDisplay() {
   if (balanceDisplay) {
     balanceDisplay.textContent = gameState.balance.toFixed(2);
@@ -98,12 +98,25 @@ function updateRowsOptions() {
   }
 }
 
-updateRowsOptions();
-updateBalanceDisplay();
+// Create a mirrored multipliers array (disabled here, returns original)
+function createMirroredMultipliers(multipliers) {
+  return multipliers;
+}
 
-/**
- * Matter.js settings
- */
+// Calculate ball radius based on the number of rows
+function getBallRadius(rows) {
+  const minRows = 8;
+  const maxRows = 20;
+  const minRadius = 4;
+  const maxRadius = 10;
+  const clamped = Math.min(Math.max(rows, minRows), maxRows);
+  const t = (clamped - minRows) / (maxRows - minRows);
+  return maxRadius - t * (maxRadius - minRadius);
+}
+
+// -------------------------
+// Matter.js Setup
+// -------------------------
 const engine = Matter.Engine.create({
   gravity: { x: 0, y: 1, scale: 0.001 },
 });
@@ -121,58 +134,29 @@ const runner = Matter.Runner.create();
 Matter.Runner.run(runner, engine);
 Matter.Render.run(render);
 
-/**
- * Helper function: Create a mirrored multipliers array.
- * Example: [0.5, 1, 2] => [2, 1, 0.5, 1, 2]
- */
-function createMirroredMultipliers(multipliers) {
-  const mirrored = multipliers.slice();
-  const reversed = multipliers.slice().reverse();
-  reversed.pop(); // Remove duplicate center value
-  return reversed.concat(mirrored);
-}
-
-/**
- * Helper function: Calculate the ball radius based on the number of rows.
- */
-function getBallRadius(rows) {
-  const minRows = 8;
-  const maxRows = 20;
-  const minRadius = 4;
-  const maxRadius = 10;
-  const clamped = Math.min(Math.max(rows, minRows), maxRows);
-  const t = (clamped - minRows) / (maxRows - minRows);
-  return maxRadius - t * (maxRadius - minRadius);
-}
-
-/**
- * buildScene function:
- * - Clears and builds the game scene including walls, pegs, and multiplier zones.
- *
- * The startY value has been adjusted so that the game board is positioned inside the canvas.
- */
-// Global variable to store the reference to the afterRender event handler
+// Global variable to store multiplier zones
+window.multiplierZones = [];
 let zoneTextAfterRenderHandler = null;
 
+// -------------------------
+// Build the Game Scene
+// -------------------------
 function buildScene() {
-  // Clear previous objects from the world
   Matter.World.clear(engine.world, false);
 
-  // Base dimensions and scene settings
   const padding = 40;
   const boardWidth = CANVAS_WIDTH - padding * 2;
   const pegGap = boardWidth / (gameState.rows + 2);
-  // Reduced multiplierHeight to 30 to make the zones more rectangular
   const multiplierHeight = 30;
   const totalRows = gameState.rows;
-  // Adjust startY so that the board fits within the canvas (items stick to the ground)
-  const startY = 50; // Adjusted for better vertical positioning
+  const startY = 50;
 
-  // Calculate board height based on rows and peg gap
   const boardHeight = (totalRows + 1) * pegGap + multiplierHeight;
   const wallThickness = 0;
   const wallHeight = Math.max(CANVAS_HEIGHT, boardHeight + 10);
   const wallY = wallHeight / 2;
+
+  // Create walls
   const walls = [
     Matter.Bodies.rectangle(
       -wallThickness / 2,
@@ -216,12 +200,13 @@ function buildScene() {
     }
   }
 
-  // Get multiplier configuration and create multiplier zones
+  // Create multiplier zones
   const baseMultipliers = PLINKO_CONFIG[gameState.risk][gameState.rows] || [];
   const multipliers = createMirroredMultipliers(baseMultipliers);
   const zoneWidth = boardWidth / multipliers.length;
   const lastPegY = startY + (totalRows - 1) * pegGap;
   const zoneY = lastPegY + pegGap / 2 + multiplierHeight / 2;
+
   const zones = multipliers.map((mult, i) => {
     return Matter.Bodies.rectangle(
       padding + i * zoneWidth + zoneWidth / 2,
@@ -236,29 +221,42 @@ function buildScene() {
           fillStyle: "#1e033a",
           strokeStyle: "#6A15C5",
           lineWidth: 2,
-          // Custom property for inset shadow gradient height
           gradientHeight: 20,
         },
       },
     );
   });
 
-  // Add all objects to the world
+  window.multiplierZones = zones;
+
+  // Update the target zone selection element
+  const targetZoneSelect = document.getElementById("targetZoneSelect");
+  if (targetZoneSelect) {
+    targetZoneSelect.innerHTML = '<option value="">-- Select Zone --</option>';
+    zones.forEach((zone, index) => {
+      const opt = document.createElement("option");
+      opt.value = index;
+      const multiplierVal = zone.label.split("-")[1];
+      opt.textContent = multiplierVal + "x";
+      targetZoneSelect.appendChild(opt);
+    });
+  }
+
   Matter.World.add(engine.world, [...walls, ...pegs, ...zones]);
 
-  // Remove the previous afterRender listener if it exists
+  // Remove previous afterRender handler
   if (zoneTextAfterRenderHandler) {
     Matter.Events.off(render, "afterRender", zoneTextAfterRenderHandler);
   }
 
-  // Define a new afterRender event handler to draw text and inset shadow on each zone
+  // Define an afterRender handler to draw zone text and gradient
   zoneTextAfterRenderHandler = function () {
     const ctx = render.context;
     const { bounds, options } = render;
     const width = options.width || 0;
     const height = options.height || 0;
+
     ctx.save();
-    // Coordinate transformation for camera adjustments
     const scaleX = width / (bounds.max.x - bounds.min.x);
     const scaleY = height / (bounds.max.y - bounds.min.y);
     ctx.scale(scaleX, scaleY);
@@ -267,88 +265,105 @@ function buildScene() {
     ctx.textBaseline = "middle";
     ctx.font = "bold 16px Arial";
     ctx.fillStyle = "white";
+
     zones.forEach((zone) => {
-      // Draw the multiplier text
       const val = parseFloat(zone.label.split("-")[1]);
       ctx.fillText(val + "x", zone.position.x, zone.position.y);
 
-      // Draw the inset shadow along the bottom of the zone
-      const zWidth = zoneWidth; // Use the known zoneWidth
+      const zWidth = zoneWidth;
       const zHeight = multiplierHeight;
       const zX = zone.position.x - zWidth / 2;
       const zY = zone.position.y - zHeight / 2;
       const gradH = zone.render.gradientHeight || 20;
 
       ctx.save();
-      // Clip to the zone rectangle to confine the gradient
       ctx.beginPath();
       ctx.rect(zX, zY, zWidth, zHeight);
       ctx.clip();
 
-      // Create a vertical gradient starting from the bottom edge upward
       let grad = ctx.createLinearGradient(
         0,
         zY + zHeight,
         0,
         zY + zHeight - gradH,
       );
-      grad.addColorStop(0, "#6A15C5"); // Full stroke color at the bottom
-      grad.addColorStop(1, "rgba(106,21,197,0)"); // Transparent at the top of the gradient
-
+      grad.addColorStop(0, "#6A15C5");
+      grad.addColorStop(1, "rgba(106,21,197,0)");
       ctx.fillStyle = grad;
       ctx.fillRect(zX, zY, zWidth, zHeight);
       ctx.restore();
     });
+
     ctx.restore();
   };
-
-  // Add the new afterRender listener
   Matter.Events.on(render, "afterRender", zoneTextAfterRenderHandler);
 
-  // Set the viewport (camera view)
+  // Adjust the viewport
   Matter.Render.lookAt(render, {
     min: { x: -wallThickness, y: 0 },
     max: { x: CANVAS_WIDTH + wallThickness, y: wallHeight },
   });
 }
 
-/**
- * dropBall function:
- * - Checks the balance and game state
- * - Deducts the bet amount and sets the game state to running
- * - Creates the ball and adds it to the world
- * - Adds a collision listener for when the ball hits a multiplier zone
- */
+// -------------------------
+// Drop Ball Functionality (Clamped horizontal velocity)
+// -------------------------
 function dropBall() {
-  if (gameState.isRunning) return;
   if (gameState.balance < gameState.betAmount) {
     alert("Insufficient balance!");
     return;
   }
-  // Deduct bet amount and update balance display
   gameState.balance -= gameState.betAmount;
   updateBalanceDisplay();
-  gameState.isRunning = true;
 
   const radius = getBallRadius(gameState.rows);
-  const xRand = (Math.random() - 0.5) * 20;
-  // Create the ball at a visible position within the canvas (y = 5)
-  const ball = Matter.Bodies.circle(CANVAS_WIDTH / 2 + xRand, 5, radius, {
-    restitution: 0.7,
-    friction: 4,
+  let startX = CANVAS_WIDTH / 2;
+  const startY = 5;
+
+  // Set initial velocity with no horizontal component (we'll steer continuously)
+  let initialVelocity = { x: 0, y: 2 };
+
+  const ball = Matter.Bodies.circle(startX, startY, radius, {
+    restitution: 0.3,
+    friction: 0.3,
     frictionAir: 0.02,
     density: 0.1,
     render: {
       fillStyle: "#410b7b",
       strokeStyle: "#7819dd",
       lineWidth: 2,
-      // Custom property for inset shadow gradient height
       gradientHeight: 20,
     },
   });
-  Matter.Body.setVelocity(ball, { x: 0, y: 2 });
+  Matter.Body.setVelocity(ball, initialVelocity);
   Matter.World.add(engine.world, ball);
 
+  // Continuous guidance: apply a small force on each update to steer the ball
+  if (
+    gameState.targetZone !== null &&
+    window.multiplierZones &&
+    window.multiplierZones[gameState.targetZone]
+  ) {
+    const guidanceHandler = function () {
+      // Get the x-coordinate of the target zone's center
+      const targetX = window.multiplierZones[gameState.targetZone].position.x;
+      const dx = targetX - ball.position.x;
+      // Apply a force proportional to the horizontal distance (adjust factor as needed)
+      const forceMagnitude = 0.00005 * dx;
+      Matter.Body.applyForce(ball, ball.position, { x: forceMagnitude, y: 0 });
+
+      // Optionally, disable guidance when the ball is near the target zone vertically
+      if (
+        ball.position.y >
+        window.multiplierZones[gameState.targetZone].position.y - 20
+      ) {
+        Matter.Events.off(engine, "beforeUpdate", guidanceHandler);
+      }
+    };
+    Matter.Events.on(engine, "beforeUpdate", guidanceHandler);
+  }
+
+  // Collision handler: when the ball collides with a multiplier zone, calculate winnings
   const collisionHandler = function (evt) {
     evt.pairs.forEach((pair) => {
       const bodies = [pair.bodyA, pair.bodyB];
@@ -360,10 +375,8 @@ function dropBall() {
         const profit = gameState.betAmount * multiplier;
         setTimeout(() => {
           gameState.balance += profit;
-          gameState.isRunning = false;
           updateBalanceDisplay();
           Matter.World.remove(engine.world, ball);
-          // Callback can be called here if needed
         }, 10);
         Matter.Events.off(engine, "collisionStart", collisionHandler);
       }
@@ -372,9 +385,9 @@ function dropBall() {
   Matter.Events.on(engine, "collisionStart", collisionHandler);
 }
 
-/**
- * Control panel event listeners
- */
+// -------------------------
+// Control Panel Event Listeners
+// -------------------------
 if (betInput) {
   betInput.addEventListener("change", function (e) {
     const val = parseFloat(e.target.value);
@@ -399,9 +412,20 @@ if (rowsSelect) {
   });
 }
 
+const targetZoneSelect = document.getElementById("targetZoneSelect");
+if (targetZoneSelect) {
+  targetZoneSelect.addEventListener("change", function (e) {
+    const val = e.target.value;
+    gameState.targetZone = val === "" ? null : parseInt(val, 10);
+  });
+}
+
 if (sendBallButton) {
   sendBallButton.addEventListener("click", dropBall);
 }
 
-// Build the initial scene
+// -------------------------
+// Initialize the Scene
+// -------------------------
 buildScene();
+updateBalanceDisplay();

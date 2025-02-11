@@ -653,7 +653,8 @@ footer a:hover {
     margin-top: 20px;
   }
   .pachinka-content {
-    height: 60vh;
+    height: 67vh;
+    width: 100%;
   }
 }
 
@@ -661,6 +662,7 @@ footer a:hover {
   .pachinka-content {
     aspect-ratio: inherit;
     height: fit-content;
+    width: 100%;
   }
   .footer-top-section {
     text-align: center;
