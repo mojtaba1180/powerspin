@@ -29,10 +29,11 @@
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 450;
 
-// Plinko multiplier configurations
+// Plinko multiplier configurations for different risk levels and row counts
 const PLINKO_CONFIG = {
   low: {
-    8: [
+    // Updated for 10 rows
+    10: [
       { value: 1, color: "#6A15C5" },
       { value: 2, color: "#6A15C5" },
       { value: 5, color: "#6A15C5" },
@@ -54,15 +55,12 @@ const gameState = {
   mode: "manual",
   betAmount: 10,
   risk: "low",
-  rows: 8,
+  rows: 10, // Changed number of rows to 10
   isRunning: false,
   balance: 1000,
   sound: true,
-  targetZone: 6, // The index of the target multiplier zone
+  targetZone: 7, // The index of the target multiplier zone (adjust as needed)
 };
-
-// for change target multiplier zone
-//  const forceMagnitude = 0.00005 * dx; for setting this value
 
 const balanceDisplay = document.getElementById("balanceDisplay");
 const betInput = document.getElementById("betInput");
@@ -146,6 +144,7 @@ function buildScene() {
 
   const padding = 40;
   const boardWidth = CANVAS_WIDTH - padding * 2;
+  // Adjust pegGap based on new row count: (rows + 2)
   const pegGap = boardWidth / (gameState.rows + 2);
   const multiplierHeight = 30;
   const totalRows = gameState.rows;
@@ -200,7 +199,7 @@ function buildScene() {
     }
   }
 
-  // Create multiplier zones
+  // Create multiplier zones using the configuration for 10 rows
   const baseMultipliers = PLINKO_CONFIG[gameState.risk][gameState.rows] || [];
   const multipliers = createMirroredMultipliers(baseMultipliers);
   const zoneWidth = boardWidth / multipliers.length;
@@ -306,7 +305,7 @@ function buildScene() {
 }
 
 // -------------------------
-// Drop Ball Functionality (Clamped horizontal velocity)
+// Drop Ball Functionality (Clamped horizontal velocity with enhanced guidance)
 // -------------------------
 function dropBall() {
   if (gameState.balance < gameState.betAmount) {
@@ -320,7 +319,7 @@ function dropBall() {
   let startX = CANVAS_WIDTH / 2;
   const startY = 5;
 
-  // Set initial velocity with no horizontal component (we'll steer continuously)
+  // Start with a vertical-only velocity.
   let initialVelocity = { x: 0, y: 2 };
 
   const ball = Matter.Bodies.circle(startX, startY, radius, {
@@ -338,25 +337,28 @@ function dropBall() {
   Matter.Body.setVelocity(ball, initialVelocity);
   Matter.World.add(engine.world, ball);
 
-  // Continuous guidance: apply a small force on each update to steer the ball
+  // Enhanced continuous guidance: apply a horizontal force to steer the ball
   if (
     gameState.targetZone !== null &&
     window.multiplierZones &&
     window.multiplierZones[gameState.targetZone]
   ) {
     const guidanceHandler = function () {
-      // Get the x-coordinate of the target zone's center
       const targetX = window.multiplierZones[gameState.targetZone].position.x;
       const dx = targetX - ball.position.x;
-      // Apply a force proportional to the horizontal distance (adjust factor as needed)
-      const forceMagnitude = 0.00005 * dx;
+
+      // Increase proportional gain for better correction with 10 rows.
+      const kP = 0.0008;
+      let forceMagnitude = kP * dx;
+      const maxForce = 0.0005;
+      if (forceMagnitude > maxForce) forceMagnitude = maxForce;
+      if (forceMagnitude < -maxForce) forceMagnitude = -maxForce;
+
       Matter.Body.applyForce(ball, ball.position, { x: forceMagnitude, y: 0 });
 
-      // Optionally, disable guidance when the ball is near the target zone vertically
-      if (
-        ball.position.y >
-        window.multiplierZones[gameState.targetZone].position.y - 20
-      ) {
+      // Once the horizontal error is minimal, set horizontal velocity to zero
+      if (Math.abs(dx) < 0.5) {
+        Matter.Body.setVelocity(ball, { x: 0, y: ball.velocity.y });
         Matter.Events.off(engine, "beforeUpdate", guidanceHandler);
       }
     };
