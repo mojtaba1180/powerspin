@@ -33,7 +33,7 @@ const CANVAS_HEIGHT = 450;
 const PLINKO_CONFIG = {
   low: {
     // Updated for 10 rows
-    10: [
+    9: [
       { value: 1, color: "#6A15C5" },
       { value: 2, color: "#6A15C5" },
       { value: 5, color: "#6A15C5" },
@@ -47,19 +47,19 @@ const PLINKO_CONFIG = {
     ],
   },
 };
+// Global variables
+let isSingleDrop = true; // Default to single drop (True: Only one drop, False: Multiple drops)
 
-// -------------------------
-// Game State & DOM Elements
-// -------------------------
+// Game state and DOM elements
 const gameState = {
   mode: "manual",
   betAmount: 10,
   risk: "low",
-  rows: 10, // Changed number of rows to 10
+  rows: 9, // Changed number of rows to 10
   isRunning: false,
   balance: 1000,
   sound: true,
-  targetZone: 7, // The index of the target multiplier zone (adjust as needed)
+  targetZone: 3, // The index of the target multiplier zone (adjust as needed)
 };
 
 const balanceDisplay = document.getElementById("balanceDisplay");
@@ -67,6 +67,7 @@ const betInput = document.getElementById("betInput");
 const riskSelect = document.getElementById("riskSelect");
 const rowsSelect = document.getElementById("rowsSelect");
 const sendBallButton = document.getElementById("sendBallButton");
+const sendBallContainer = document.getElementById("sendBallContainer");
 const canvas = document.getElementById("gameCanvas");
 
 // -------------------------
@@ -145,7 +146,7 @@ function buildScene() {
   const padding = 40;
   const boardWidth = CANVAS_WIDTH - padding * 2;
   // Adjust pegGap based on new row count: (rows + 2)
-  const pegGap = boardWidth / (gameState.rows + 2);
+  const pegGap = boardWidth / (gameState.rows + 1.8);
   const multiplierHeight = 30;
   const totalRows = gameState.rows;
   const startY = 50;
@@ -307,11 +308,25 @@ function buildScene() {
 // -------------------------
 // Drop Ball Functionality (Clamped horizontal velocity with enhanced guidance)
 // -------------------------
+// Global variable to track if the ball has already dropped
+let isDropped = false;
+
 function dropBall() {
   if (gameState.balance < gameState.betAmount) {
     alert("Insufficient balance!");
     return;
   }
+
+  // Prevent multiple drops if isDropped is true
+  if (isDropped) {
+    alert("The ball has already been dropped.");
+    return;
+  }
+  sendBallContainer.remove();
+
+  // Mark the ball as dropped
+  isDropped = true;
+
   gameState.balance -= gameState.betAmount;
   updateBalanceDisplay();
 
@@ -385,6 +400,22 @@ function dropBall() {
     });
   };
   Matter.Events.on(engine, "collisionStart", collisionHandler);
+}
+
+// Reset the game state when the ball reaches the bottom or after a set time
+function resetGame() {
+  // Allow dropping the ball again after a delay or when the ball reaches the end
+  isDropped = false;
+}
+
+// -------------------------
+// Toggle Single Drop Mode
+// -------------------------
+function toggleSingleDrop() {
+  isSingleDrop = !isSingleDrop; // Toggle between True/False
+  alert(
+    isSingleDrop ? "Single drop mode enabled." : "Multiple drop mode enabled.",
+  );
 }
 
 // -------------------------
